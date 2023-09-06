@@ -1,4 +1,4 @@
-import { requestExchangeRate } from 'api/floatrates';
+import { requestAllExchangeRates } from 'api/floatrates';
 
 export const REQUEST_BEGIN   = "REQUEST_BEGIN";
 export const REQUEST_SUCCESS = "REQUEST_SUCCESS";
@@ -7,9 +7,9 @@ export const REQUEST_FAILURE = "REQUEST_FAILURE";
 export function fetchExchangeRates() {
   return (dispatch) => {
     dispatch({type: REQUEST_BEGIN})
-    return requestExchangeRate('usdd')
+    return requestAllExchangeRates()
       .then(
-        ({data}) => {
+        (data) => {
           dispatch(setExchangeRates(data));
         },
         (error) => {
@@ -21,9 +21,8 @@ export function fetchExchangeRates() {
 }
 
 function setExchangeRates(data) {
-  console.log(data)
   return {
-    type: REQUEST_BEGIN,
+    type: REQUEST_SUCCESS,
     payload: {data},
   }
 }
