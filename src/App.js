@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import UI from 'components/ui';
+import Form from 'components/form';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchExchangeRates } from 'redux/actions/exchangeRates';
 
 function App() {
+  const dispatch = useDispatch();
+  const {loading, error, data} = useSelector(state => state.exchangeRatesReducer);
+  
+  useEffect(() => {
+    dispatch(fetchExchangeRates());
+  }, []);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UI.CenterContainer>
+      <UI.Card>
+        <h1 className="text-2xl font-medium mb-2">Currency Converter</h1>
+        <Form.CurrencyInput/>
+      </UI.Card>
+    </UI.CenterContainer>
   );
 }
 
