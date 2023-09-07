@@ -17,7 +17,9 @@ const validationSchema = yup.object({
       (message) => `Amount must be to 2 decimal places`,
       (value) => {
         const number = value.toString();
-        return /^[0-9]+(?:\.\d{0,2}$)?$/.test(number)
+
+        // account for a scientific notiation number
+        return /^[0-9]+(?:\.\d{0,2}$)?$/.test(number) && !number.toLowerCase().includes("e");
       }
     ),
 });

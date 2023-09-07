@@ -1,12 +1,15 @@
-import UI from 'components/ui';
-import CurrencyConversionForm from 'components/CurrencyConversionForm';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchExchangeRates } from 'redux/actions/exchangeRates';
 
+import UI from 'components/ui';
+import CurrencyConversionForm from 'components/CurrencyConversionForm';
+
 function App() {
   const dispatch = useDispatch();
   const {loading, error} = useSelector(state => state.exchangeRatesReducer);
+
+  // data part of application, needed before the form is operable
   useEffect(() => {
     dispatch(fetchExchangeRates())
   }, []);
