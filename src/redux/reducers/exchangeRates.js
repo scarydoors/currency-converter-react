@@ -1,8 +1,9 @@
 import { REQUEST_BEGIN, REQUEST_SUCCESS, REQUEST_FAILURE } from 'redux/actions/exchangeRates';
 
 const initialState = {
-  data: null,
-  loading: false,
+  exchangeRates: null,
+  codeNamesMap: null,
+  loading: true,
   error: null,
 };
 
@@ -17,7 +18,8 @@ export default function exchangeRatesReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        data: action.payload.data,
+        exchangeRates: action.payload.exchangeRates,
+        codeNamesMap: action.payload.codeNamesMap,
       };
     case REQUEST_FAILURE:
       return {

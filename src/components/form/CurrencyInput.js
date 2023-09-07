@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import * as yup from 'yup';
-
-import { currencies, currency_info } from 'constants/currencies';
+import getSymbolFromCurrency from 'currency-symbol-map';
 import Error from './Error';
-
-const currencyOptions = currencies.map((currency) => ({ label: currency.toUpperCase(), value: currency }));
 
 const amountRequiredMessage = 'A valid amount is required';
 const validationSchema = yup.object({
-  currency: yup.mixed().oneOf(currencies, 'A valid currency is required'),
+  currency: yup.mixed()
+    .when("$currencyOptions", ([currencyOptions], schema) => (schema.oneOf(currencyOptions, "A valid currency is required"))),
   amount: yup
     .number()
     .typeError(amountRequiredMessage)
@@ -33,13 +31,14 @@ const validationSchema = yup.object({
  * @param{object} value - value that is assigned to the input e.g. {currency: 'gbp', amount: '2.00'}
  * @param{function} onChange - fires when the value of the input is updated
  */
-export default function CurrencyInput({ id, label, value, onChange }) {
+export default function CurrencyInput({ id, label, value, onChange, currencyOptions }) {
   const [errorMessages, setErrorMessages] = useState(null);
   const selectId = `${id}select`;
 
   // need to use useEffect in-case value is updated by prop change instead of onChange
   useEffect(() => {
-    validationSchema.validate(value, { abortEarly: false }).then(
+    console.log(value)
+    validationSchema.validate(value, { abortEarly: false, context: {currencyOptions} }).then(
       (value) => {
         setErrorMessages(null);
       },
@@ -63,13 +62,13 @@ export default function CurrencyInput({ id, label, value, onChange }) {
       </label>
       <div className="relative mt-2 rounded-md shadow-sm">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-          <span className="text-gray-500 sm:text-sm">{currency_info[value.currency].symbol}</span>
+          <span className="text-gray-500 sm:text-sm">{getSymbolFromCurrency(value.currency)}</span>
         </div>
         <input
           type="number"
           name="amount"
           id={id}
-          className={`block w-full rounded-md border-0 py-3 pl-7 pr-20 ring-1 ring-inset ring-gray-300
+          className={`block w-full rounded-md border-0 py-3 pl-9 pr-20 ring-1 ring-inset ring-gray-300
                    focus:ring-2 focus:ring-inset sm:text-sm sm-leading-6 ${getClasses()}`}
           value={value.amount}
           placeholder="0.00"
@@ -89,8 +88,8 @@ export default function CurrencyInput({ id, label, value, onChange }) {
             }}
             value={value.currency}
           >
-            {currencyOptions.map((option, idx) => (
-              <option key={idx} label={option.label} value={option.value} />
+            {currencyOptions.map((currency, idx) => (
+              <option key={idx} label={currency.toUpperCase()} value={currency} />
             ))}
           </select>
         </div>

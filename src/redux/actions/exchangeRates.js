@@ -12,7 +12,7 @@ export function fetchExchangeRates() {
     dispatch({ type: REQUEST_BEGIN });
     return requestAllExchangeRates().then(
       (data) => {
-        dispatch(setExchangeRates(data));
+        dispatch(setExchangeRates(data.exchangeRates, data.codeNamesMap));
       },
       (error) => {
         dispatch(onError(error));
@@ -21,10 +21,13 @@ export function fetchExchangeRates() {
   };
 }
 
-function setExchangeRates(data) {
+function setExchangeRates(exchangeRates, codeNamesMap) {
   return {
     type: REQUEST_SUCCESS,
-    payload: { data },
+    payload: {
+      exchangeRates,
+      codeNamesMap
+    },
   };
 }
 
