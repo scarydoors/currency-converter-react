@@ -6,7 +6,11 @@ const initialState = {
   loading: true,
   error: null,
 };
-
+/*
+  This reducer serves as a global store of exchangeRate data Which
+  would make sense if multiple areas of the app required exchangeRate
+  data without needing to pass it through the component tree.
+ */
 export default function exchangeRatesReducer(state = initialState, action) {
   switch (action.type) {
     case REQUEST_BEGIN:

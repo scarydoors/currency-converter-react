@@ -1,8 +1,11 @@
 import axios from 'axios';
 
 export function apiInstance() {
+  // no timeout is set because chrome will queue the requests which
+  // may mean that they can timeout
   return axios.create({
     baseURL: 'http://www.floatrates.com/daily/',
+    // extract only what we need
     transformResponse: [
       (data) => {
         // {gbp: {}, ...}
@@ -30,6 +33,21 @@ function getEndpoint(currency) {
   return `${currency}.json`;
 }
 
+/**
+ * Fires off many requests to fetch exchangeRates and a map of names
+ * @returns{object} - {codeNamesMap exchangeRates}
+ *
+ * @example
+ * codeNamesMap = {
+ *   'gbp': 'British Pound Sterling',
+ *   ...
+ * }
+ *
+ * exchangeRates = {
+ *   'gbp': {'usd': {rate: 1.666, date: new Date()}, ...},
+ *   ...
+ * }
+ */
 export async function requestAllExchangeRates(instance = apiInstance()) {
   // hack to retrieve all available currencies because api does not provide this
   const { data } = await requestExchangeRate('gbp', instance);
@@ -52,6 +70,8 @@ export async function requestAllExchangeRates(instance = apiInstance()) {
     }),
   ).then(
     (data) => {
+      // need to add gbp in from initial request because it is not
+      // included in the supportedCurrencies
       return {
         codeNamesMap,
         exchangeRates: {

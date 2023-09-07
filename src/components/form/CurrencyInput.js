@@ -33,6 +33,7 @@ const validationSchema = yup.object({
  * @param{string} label - label which is displayed to the user
  * @param{object} value - value that is assigned to the input e.g. {currency: 'gbp', amount: '2.00'}
  * @param{function} onChange - fires when the value of the input is updated
+ * @param{string[]} currencyOptions - array of supported currencies in ISO4217 format
  */
 export default function CurrencyInput({ id, label, value, onChange, currencyOptions }) {
   const [errorMessages, setErrorMessages] = useState(null);
