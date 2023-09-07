@@ -6,13 +6,27 @@ import { fetchExchangeRates } from 'redux/actions/exchangeRates';
 
 function App() {
   const dispatch = useDispatch();
-  
+  const {loading, error} = useSelector(state => state.exchangeRatesReducer);
   useEffect(() => {
     dispatch(fetchExchangeRates())
   }, []);
   
   return (
-    <UI.CenterContainer>
+    <UI.CenterContainer
+      loading={loading}
+      loadingRender={
+        <div className="text-center space-y-6 p-6">
+          <UI.Spinner className="w-16 h-16"/>
+          <p>Loading Conversion Rates...</p>
+        </div>
+      }
+      error={error}
+      errorRender={
+        <div className="text-center space-y-6 p-6">
+          <UI.Spinner className="w-16 h-16"/>
+          <p>Error...</p>
+        </div>
+      }>
       <UI.Card>
         <h1 className="text-2xl font-medium mb-2">Currency Converter</h1>
         <CurrencyConversionForm />
