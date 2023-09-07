@@ -89,8 +89,8 @@ export default function CurrencyInput({id, label, value, onChange}) {
           </select>
         </div>
       </div>
-      {errorMessages && errorMessages.map((message) => (
-        <Error text={message} />        
+      {errorMessages && errorMessages.map((message, idx) => (
+        <Error key={idx} text={message} />        
       ))}
     </div>
   )
