@@ -30,15 +30,16 @@ function getEndpoint(currency) {
 
 export function requestAllExchangeRates() {
   const instance = apiInstance();
-  console.log("ran")
+
   return Promise.all(currencies.map(async (currency) => {
-    return [currency, (await requestExchangeRate(currency, instance)).data];
+    const response = await requestExchangeRate(currency, instance);
+    return [currency, response.data];
   })).then(
     (data) => {
       return Object.fromEntries(data);
     },
     (error) => {
-      return error;
+      return reject(error);
     }
   );
 }
