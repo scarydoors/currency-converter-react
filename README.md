@@ -6,12 +6,13 @@ Supports conversions for USD, GBP, CAD, AUD, and JPY. Uses Redux for
 state management and managing form state to ensure both input boxes
 are synced with each other.
 
-Uses `yup` for validations and performs a series of checks: 
-* checking if field is invalid or empty
-* checking if field has negative numbers (akin to Google)
-* checking if field exceeds 2 decimal places
-* allows scientific notation similar to Google
-* checking if the select contains invalid values (unsupported currencies)
+Uses `yup` for validations and performs a series of checks:
+
+- checking if field is invalid or empty
+- checking if field has negative numbers (akin to Google)
+- checking if field exceeds 2 decimal places
+- allows scientific notation similar to Google
+- checking if the select contains invalid values (unsupported currencies)
 
 Adding support for more currencies is supported by updating the
 constants located at `constants/currencies`.
@@ -40,31 +41,34 @@ roll all the immutable state logic and such, but if Redux Toolkit is
 preferred it will be easy to pick up.
 
 Redux is used in this app to store 2 different types of data:
-* The results from the API
-  * Provides a reducer which stores 3 variables `loading`, `error`,
+
+- The results from the API
+  - Provides a reducer which stores 3 variables `loading`, `error`,
     and `data`.
-  * The reducer supports the actions: `REQUEST_SUCCESS`,
+  - The reducer supports the actions: `REQUEST_SUCCESS`,
     `REQUEST_FAILURE`, and `REQUEST_BEGIN`.
-* The form's state
-  * Provides a reducer which stores 2 variables `from` and `to`.
-  * The reducer supports only one action: `UPDATE` performs operations
+- The form's state
+  - Provides a reducer which stores 2 variables `from` and `to`.
+  - The reducer supports only one action: `UPDATE` performs operations
     based on which field was updated.
-    
+
 The main action defined for fetching the `exchangeRates` uses
 `redux-thunk` to dispatch from an asynchronous function. The other
-actions are not exported and 
+actions are not exported and
 
 ## Reusable Components
+
 This project has a components folder which stores components that
 build upon components in the `ui` and `form` folders.
 
 The list of reusable components are as follows:
-* ui/ListContainer
-* ui/Card
-* ui/Spinner
-* form/CurrencyInput
-* form/Error
-* CurrencyConversionForm
+
+- ui/ListContainer
+- ui/Card
+- ui/Spinner
+- form/CurrencyInput
+- form/Error
+- CurrencyConversionForm
 
 The `ui/ListContainer` component center aligns all children and
 displays them in a stack. On smaller screens it bottom aligns instead.
@@ -101,7 +105,6 @@ onChange function to two `form/CurrencyInput` components which allows
 them to update Redux state and differentiate from which field onChange
 events originate.
 
-
 ## Design Decisions
 
 The validations are carried out in the `CurrencyInput` component
@@ -113,7 +116,7 @@ use.
 
 Alternatively, if this project was bigger instead of storing the
 validation in the component I would provide a library of reusable
-validations which would ease development. 
+validations which would ease development.
 
 Without the constraint of using Redux for forms, I would develop a
 Form system which provides methods such as `Form.init` which would
@@ -121,7 +124,6 @@ take in a `validationSchema` and initial field values and return an
 object, with functions such as `Form.update` and `Form.validate` which
 would perform the appropriate operations and return objects with new
 state.
-
 
 ## Available Scripts
 

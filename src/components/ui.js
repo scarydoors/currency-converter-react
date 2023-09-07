@@ -6,6 +6,6 @@ const UI = {
   ListContainer,
   Card,
   Spinner,
-}
+};
 
 export default UI;

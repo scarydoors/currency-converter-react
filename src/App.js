@@ -7,19 +7,19 @@ import CurrencyConversionForm from 'components/CurrencyConversionForm';
 
 function App() {
   const dispatch = useDispatch();
-  const {loading, error} = useSelector(state => state.exchangeRatesReducer);
+  const { loading, error } = useSelector((state) => state.exchangeRatesReducer);
 
   // main part of application, needed before the form is operable
   useEffect(() => {
     dispatch(fetchExchangeRates());
   }, [dispatch]);
-  
+
   return (
     <UI.ListContainer
       loading={loading}
       loadingRender={
         <div className="text-center space-y-6 p-6">
-          <UI.Spinner className="w-16 h-16"/>
+          <UI.Spinner className="w-16 h-16" />
           <p>Loading Conversion Rates...</p>
         </div>
       }
@@ -28,7 +28,8 @@ function App() {
         <div className="text-center space-y-6 p-6">
           <p>Could not retrieve the exchange rates. Please check your internet connection.</p>
         </div>
-      }>
+      }
+    >
       <UI.Card>
         <h1 className="text-2xl font-medium mb-2">Currency Converter</h1>
         <CurrencyConversionForm />

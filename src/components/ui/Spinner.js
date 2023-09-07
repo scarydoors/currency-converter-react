@@ -1,10 +1,7 @@
 export default function Spinner({ className }) {
   return (
     <div className={`m-auto ${className}`}>
-      <svg
-        className={`animate-spin h-full w-full mr-3 text-indigo-500`}
-        viewBox="0 0 24 24"
-      >
+      <svg className={`animate-spin h-full w-full mr-3 text-indigo-500`} viewBox="0 0 24 24">
         <path
           className="opacity-75"
           fill="currentColor"
@@ -12,5 +9,5 @@ export default function Spinner({ className }) {
         ></path>
       </svg>
     </div>
-  )
+  );
 }

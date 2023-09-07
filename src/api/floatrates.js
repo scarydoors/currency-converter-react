@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {currencies} from 'constants/currencies';
+import { currencies } from 'constants/currencies';
 
 function apiInstance() {
   return axios.create({
@@ -13,16 +13,16 @@ function apiInstance() {
         // mutate object in place
         Object.keys(conversionRates).forEach((currency) => {
           const currencyRate = conversionRates[currency];
-          
+
           conversionRates[currency] = {
-            rate: currencyRate["rate"],
-            date: currencyRate["date"]
-          }
-        })
+            rate: currencyRate['rate'],
+            date: currencyRate['date'],
+          };
+        });
 
         return conversionRates;
-      }
-    ]
+      },
+    ],
   });
 }
 
@@ -33,16 +33,18 @@ function getEndpoint(currency) {
 export function requestAllExchangeRates() {
   const instance = apiInstance();
 
-  return Promise.all(currencies.map(async (currency) => {
-    const response = await requestExchangeRate(currency, instance);
-    return [currency, response.data];
-  })).then(
+  return Promise.all(
+    currencies.map(async (currency) => {
+      const response = await requestExchangeRate(currency, instance);
+      return [currency, response.data];
+    }),
+  ).then(
     (data) => {
       return Object.fromEntries(data);
     },
     (error) => {
       return Promise.reject(error);
-    }
+    },
   );
 }
 
