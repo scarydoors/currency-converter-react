@@ -1,5 +1,7 @@
 import CurrencyInput from './form/CurrencyInput';
 
-export default {
-  CurrencyInput
+const Form = {
+  CurrencyInput,
 }
+
+export default Form;

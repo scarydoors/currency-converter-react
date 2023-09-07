@@ -11,8 +11,8 @@ function App() {
 
   // data part of application, needed before the form is operable
   useEffect(() => {
-    dispatch(fetchExchangeRates())
-  }, []);
+    dispatch(fetchExchangeRates());
+  }, [dispatch]);
   
   return (
     <UI.CenterContainer
@@ -26,8 +26,7 @@ function App() {
       error={error}
       errorRender={
         <div className="text-center space-y-6 p-6">
-          <UI.Spinner className="w-16 h-16"/>
-          <p>Error...</p>
+          <p>Could not retrieve the exchange rates. Please check your internet connection.</p>
         </div>
       }>
       <UI.Card>
