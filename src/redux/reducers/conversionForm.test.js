@@ -1,6 +1,5 @@
 import reducer from './conversionForm';
-import { updateForm, UPDATE } from 'redux/actions/conversionForm';
-import 'jest';
+import { UPDATE } from 'redux/actions/conversionForm';
 
 const mockExchangeRates = {
   usd: {
