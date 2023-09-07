@@ -1,14 +1,16 @@
 import {useState, useEffect} from 'react';
 import * as yup from 'yup';
-import {currencies} from 'constants/currencies';
+import {currencies, currency_info} from 'constants/currencies';
 import Error from './Error'
 
+const currencyOptions = currencies.map((currency) => ({label: currency.toUpperCase(), value: currency}));
+
 const validationSchema = yup.object({
-  currency: yup.string().required("werw"),
+  currency: yup.mixed().oneOf(currencies, "A valid currency is required"),
   amount: yup
     .number()
     .typeError("A valid amount is required")
-    .required("An amount is required")
+    .required("A valid amount is required")
     .min(0, "A valid amount is required")
     .test(
       "has-2-dp",
@@ -21,18 +23,19 @@ const validationSchema = yup.object({
     ),
 });
 
-const currencyOptions = currencies.map((currency) => ({label: currency.toUpperCase(), value: currency}));
-
 export default function CurrencyInput({id, label, value, onChange}) {
   const [error, setError] = useState(null);
   const selectId = `${id}select`;
 
+  // need to use useEffect in-case value is updated by prop change instead of onChange
   useEffect(() => {
     validationSchema.validate(value, { abortEarly: false }).then(
       (value) => {
         setError(null);
       },
       (errors) => {
+        console.log(value)
+        console.log(errors.inner)
         // show only first error to reduce clutter (UX)
         setError(errors.inner[0].message);
       }
@@ -54,7 +57,7 @@ export default function CurrencyInput({id, label, value, onChange}) {
       </label>
       <div className="relative mt-2 rounded-md shadow-sm">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-          <span className="text-gray-500 sm:text-sm">$</span>
+          <span className="text-gray-500 sm:text-sm">{currency_info[value.currency].symbol}</span>
         </div>
         <input
           type="number"
