@@ -27,7 +27,7 @@ const validationSchema = yup.object({
 });
 
 /**
- * Specialized form input for entering amounts of money.  
+ * Specialized form input for entering amounts of money.
  * @param{string} id - id used for inputs
  * @param{string} label - label which is displayed to the user
  * @param{object} value - value that is assigned to the input e.g. {currency: 'gbp', amount: '2.00'}

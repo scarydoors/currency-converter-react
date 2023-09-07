@@ -27,8 +27,12 @@
       "react-app/jest"
     ],
     "rules": {
-      "testing-library/no-unnecessary-act": [0],
-      "testing-library/prefer-presence-queries": [0]
+      "testing-library/no-unnecessary-act": [
+        0
+      ],
+      "testing-library/prefer-presence-queries": [
+        0
+      ]
     }
   },
   "browserslist": {
