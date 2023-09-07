@@ -6,7 +6,6 @@ describe("<CurrencyInput /> validations", () => {
   const id = "currencyInput";
   const onChange = jest.fn();
   const label = "Amount";
-  const amountRequiredMessage = "A valid amount is required";
 
   const setup = async (value) => {
     return act(() => {
@@ -18,12 +17,12 @@ describe("<CurrencyInput /> validations", () => {
 
   test('amount required validation works', async () => {
     await setup({currency: "aud", amount: ""});
-    expect(screen.queryByText(amountRequiredMessage)).toBeInTheDocument();
+    expect(screen.queryByText("A valid amount is required")).toBeInTheDocument();
   })
 
   test('amount min validation works', async () => {
     await setup({currency: "aud", amount: "-2.00"});
-    expect(screen.queryByText(amountRequiredMessage)).toBeInTheDocument();
+    expect(screen.queryByText("A valid amount is required")).toBeInTheDocument();
   })
 
   test('amount scientific number validation works', async () => {
