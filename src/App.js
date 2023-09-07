@@ -15,7 +15,7 @@ function App() {
   }, [dispatch]);
   
   return (
-    <UI.CenterContainer
+    <UI.ListContainer
       loading={loading}
       loadingRender={
         <div className="text-center space-y-6 p-6">
@@ -33,7 +33,7 @@ function App() {
         <h1 className="text-2xl font-medium mb-2">Currency Converter</h1>
         <CurrencyConversionForm />
       </UI.Card>
-    </UI.CenterContainer>
+    </UI.ListContainer>
   );
 }
 

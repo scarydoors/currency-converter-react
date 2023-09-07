@@ -1,9 +1,9 @@
-import CenterContainer from './ui/CenterContainer';
+import ListContainer from './ui/ListContainer';
 import Card from './ui/Card';
 import Spinner from './ui/Spinner';
 
 const UI = {
-  CenterContainer,
+  ListContainer,
   Card,
   Spinner,
 }
