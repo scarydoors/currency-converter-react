@@ -37,7 +37,6 @@ export default function CurrencyInput({ id, label, value, onChange, currencyOpti
 
   // need to use useEffect in-case value is updated by prop change instead of onChange
   useEffect(() => {
-    console.log(value)
     validationSchema.validate(value, { abortEarly: false, context: {currencyOptions} }).then(
       (value) => {
         setErrorMessages(null);
@@ -47,7 +46,7 @@ export default function CurrencyInput({ id, label, value, onChange, currencyOpti
         setErrorMessages(messages);
       },
     );
-  }, [value]);
+  }, [value, currencyOptions]);
 
   const getClasses = () => {
     if (errorMessages) {
