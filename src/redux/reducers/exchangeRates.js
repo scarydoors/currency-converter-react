@@ -1,4 +1,4 @@
-import { REQUEST_BEGIN, REQUEST_SUCCESS, REQUEST_FAILURE } from 'redux/actions/exchangeRates';
+import { REQUEST_BEGIN, REQUEST_FAILURE, REQUEST_SUCCESS } from 'redux/actions/exchangeRates';
 
 const initialState = {
   exchangeRates: null,

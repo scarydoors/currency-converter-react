@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchExchangeRates } from 'redux/actions/exchangeRates';
 
-import UI from 'components/ui';
 import CurrencyConversionForm from 'components/CurrencyConversionForm';
+import UI from 'components/ui';
 
 function App() {
   const dispatch = useDispatch();

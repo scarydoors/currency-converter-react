@@ -1,5 +1,4 @@
 import { UPDATE } from 'redux/actions/conversionForm';
-
 import roundTwoPlaces from 'utils/round';
 
 const initialState = {

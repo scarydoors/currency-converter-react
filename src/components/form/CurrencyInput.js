@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import * as yup from 'yup';
 import getSymbolFromCurrency from 'currency-symbol-map';
+import { useEffect, useState } from 'react';
+import * as yup from 'yup';
+
 import Error from './Error';
 
 const amountRequiredMessage = 'A valid amount is required';

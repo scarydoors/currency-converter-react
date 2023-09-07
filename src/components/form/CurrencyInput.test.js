@@ -1,5 +1,6 @@
-import { render, screen, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { act, render, screen } from '@testing-library/react';
+
 import CurrencyInput from './CurrencyInput';
 
 describe('<CurrencyInput /> validations', () => {
