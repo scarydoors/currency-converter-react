@@ -1,5 +1,13 @@
 import { Children } from 'react';
 
+/**
+ * Displays children in a stack format, supports loading and error states.
+ * @param{React.ReactElement[]} children - list of components
+ * @param{React.ReactElement} loadingRender - component to render if in loading state
+ * @param{boolean} loading
+ * @param{React.ReactElement} errorRender - component to render if in error
+ * @param{boolean} error
+ */
 export default function ListContainer({ children, loadingRender, loading, errorRender, error }) {
   const childrenList = Children.toArray(children);
   return (
