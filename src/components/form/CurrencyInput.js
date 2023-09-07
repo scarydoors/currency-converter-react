@@ -17,7 +17,6 @@ const validationSchema = yup.object({
       (message) => `Amount must be to 2 decimal places`,
       (value) => {
         const number = value.toString();
-        console.log(number)
         return /^[0-9]+(?:\.\d{0,2}$)?$/.test(number)
       }
     ),
@@ -34,8 +33,6 @@ export default function CurrencyInput({id, label, value, onChange}) {
         setError(null);
       },
       (errors) => {
-        console.log(value)
-        console.log(errors.inner)
         // show only first error to reduce clutter (UX)
         setError(errors.inner[0].message);
       }

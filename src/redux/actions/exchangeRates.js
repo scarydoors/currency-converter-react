@@ -13,7 +13,6 @@ export function fetchExchangeRates() {
           dispatch(setExchangeRates(data));
         },
         (error) => {
-          console.log(error)
           dispatch(onError(error));
         }
       )
