@@ -15,7 +15,11 @@ export default function ListContainer({ children, loadingRender, loading, errorR
       {loading && loadingRender}
       {error && errorRender}
       {!(loading || error) &&
-       childrenList.map((child, idx) => <div key={idx} className="flex flex-row w-full justify-center">{child}</div>)}
+        childrenList.map((child, idx) => (
+          <div key={idx} className="flex flex-row w-full justify-center">
+            {child}
+          </div>
+        ))}
     </div>
   );
 }
