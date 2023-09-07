@@ -6,13 +6,14 @@ import Error from './Error'
 
 const currencyOptions = currencies.map((currency) => ({label: currency.toUpperCase(), value: currency}));
 
+const amountRequiredMessage = "A valid amount is required";
 const validationSchema = yup.object({
   currency: yup.mixed().oneOf(currencies, "A valid currency is required"),
   amount: yup
     .number()
-    .typeError("A valid amount is required")
-    .required("A valid amount is required")
-    .min(0, "A valid amount is required")
+    .typeError(amountRequiredMessage)
+    .required(amountRequiredMessage)
+    .min(0, amountRequiredMessage)
     .test(
       "has-2-dp",
       (message) => `Amount must be to 2 decimal places`,
