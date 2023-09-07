@@ -36,7 +36,7 @@ elements which are closer to their thumb for ease of use.
 
 I found out quite recently about Redux Toolkit and it looks great in
 regards to reducing boilerplate and ease of development however I have
-used the technically deprecated version of Redux where you'd manually
+used the version of Redux without Redux Toolkit where you'd manually
 roll all the immutable state logic and such, but if Redux Toolkit is
 preferred it will be easy to pick up.
 
@@ -145,8 +145,8 @@ npm run test
 I have used Jest for tests and have written 2 test suites to
 demonstrate my understanding of tests:
 
-- `src/redux/reducers/conversionForm.test.js`
-- `src/components/form/CurrencyInput.test.js`
+* Unit test - `src/redux/reducers/conversionForm.test.js`
+* UI test - `src/components/form/CurrencyInput.test.js`
 
 ## Available Scripts
 
