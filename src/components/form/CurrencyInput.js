@@ -23,24 +23,24 @@ const validationSchema = yup.object({
 });
 
 export default function CurrencyInput({id, label, value, onChange}) {
-  const [error, setError] = useState(null);
+  const [errorMessages, setErrorMessages] = useState(null);
   const selectId = `${id}select`;
 
   // need to use useEffect in-case value is updated by prop change instead of onChange
   useEffect(() => {
     validationSchema.validate(value, { abortEarly: false }).then(
       (value) => {
-        setError(null);
+        setErrorMessages(null);
       },
       (errors) => {
-        // show only first error to reduce clutter (UX)
-        setError(errors.inner[0].message);
+        const messages = errors.inner.map((error) => error.message);
+        setErrorMessages(messages);
       }
     )
   }, [value])
 
   const getClasses = () => {
-    if (error) {
+    if (errorMessages) {
       return "ring-red-600 focus:ring-red-600";
     }
     return "focus:ring-indigo-600";
@@ -86,7 +86,9 @@ export default function CurrencyInput({id, label, value, onChange}) {
           </select>
         </div>
       </div>
-      <Error text={error} />
+      {errorMessages && errorMessages.map((message) => (
+        <Error text={message} />        
+      ))}
     </div>
   )
 }
