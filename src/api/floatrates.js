@@ -9,6 +9,8 @@ function apiInstance() {
     transformResponse: [
       (data) => {
         let conversionRates = JSON.parse(data);
+
+        // mutate object in place
         Object.keys(conversionRates).forEach((currency) => {
           const currencyRate = conversionRates[currency];
           
