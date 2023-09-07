@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {currencies} from 'constants/currencies';
 
+import {currencies} from 'constants/currencies';
 
 function apiInstance() {
   return axios.create({

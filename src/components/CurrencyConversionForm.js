@@ -1,7 +1,8 @@
-import Form from 'components/form';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { updateForm } from 'redux/actions/conversionForm';
-import {currency_info} from 'constants/currencies';
+import Form from 'components/form';
+import { currency_info } from 'constants/currencies';
 
 export default function CurrencyConversionForm() {
   const dispatch = useDispatch();

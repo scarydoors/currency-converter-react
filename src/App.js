@@ -9,7 +9,7 @@ function App() {
   const dispatch = useDispatch();
   const {loading, error} = useSelector(state => state.exchangeRatesReducer);
 
-  // data part of application, needed before the form is operable
+  // main part of application, needed before the form is operable
   useEffect(() => {
     dispatch(fetchExchangeRates());
   }, [dispatch]);
