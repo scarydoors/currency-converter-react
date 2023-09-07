@@ -17,6 +17,9 @@ const initialState = {
  * @param{Object} previousTo - Old value of the field that will be recalculated
  */
 function calculateAmount(exchangeRates, value, previousTo) {
+  if (parseInt(value.amount) < 0) {
+    return previousTo;
+  }
   const exchangeRate = exchangeRates[value.currency];
   const toCurrency = previousTo.currency;
   
