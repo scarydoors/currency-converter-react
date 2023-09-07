@@ -2,7 +2,7 @@
 
 Currency converter based on [Google's currency converter](https://www.google.com/search?q=google+currency+converter).
 
-Supports conversions for USD, GBP, CAD, AUD, and JPY. Uses Redux for
+Supports conversions for all currencies on floatrates. Uses Redux for
 state management and managing form state to ensure both input boxes
 are synced with each other.
 
@@ -14,15 +14,17 @@ Uses `yup` for validations and performs a series of checks:
 - allows scientific notation similar to Google
 - checking if the select contains invalid values (unsupported currencies)
 
-Adding support for more currencies is supported by updating the
-constants located at `constants/currencies`.
-
 There is also an `api` layer which defines some functions for
 interfacing with the floatrates API. The API uses Axios to transform
 the response into data that the application expects, the reason for
 this is the fact that the application should not care about the
 implementation of the API which helps with adding support for new APIs
 in the future.
+
+The implementation of the API contains a hack to scrape all of the
+supported currencies on floatrates; a single daily expense rate json
+file is fetched, then it is manipulated in order to gather all the
+supported currencies and the human readable names of the currencies.
 
 The styling of the app depends on TailwindCSS. I chose TailwindCSS
 because it allows for fast prototyping and styling of HTML elements,
@@ -36,25 +38,31 @@ elements which are closer to their thumb for ease of use.
 
 I found out quite recently about Redux Toolkit and it looks great in
 regards to reducing boilerplate and ease of development however I have
-used the version of Redux without Redux Toolkit where you'd manually
-roll all the immutable state logic and such, but if Redux Toolkit is
-preferred it will be easy to pick up.
+used Redux without Redux Toolkit where you'd manually roll all the
+immutable state logic and such, but if Redux Toolkit is preferred it
+will be easy to pick up.
 
 Redux is used in this app to store 2 different types of data:
 
-- The results from the API
-  - Provides a reducer which stores 3 variables `loading`, `error`,
-    and `data`.
+- The results from the API `exchangeRatesReducer`
+  - Provides a reducer which stores 4 variables `loading`, `error`,
+    `exchangeRates`, and `codeNamesMap`.
+  - `exchangeRates` is a map which maps the input currency to an
+    output currency's exchange rate
+  - `codeNamesMap` is a map which maps ISO4217 format currency names
+    to human readable ones.
   - The reducer supports the actions: `REQUEST_SUCCESS`,
     `REQUEST_FAILURE`, and `REQUEST_BEGIN`.
-- The form's state
+- The form's state `conversionFormReducer`
   - Provides a reducer which stores 2 variables `from` and `to`.
   - The reducer supports only one action: `UPDATE` performs operations
     based on which field was updated.
+  - All of the calculations run in the reducer because they should not
+    happen in Redux actions. This makes the reducer easily testable as
+    a good reducer is a pure function.
 
 The main action defined for fetching the `exchangeRates` uses
-`redux-thunk` to dispatch from an asynchronous function. The other
-actions are not exported and
+`redux-thunk` to dispatch from an asynchronous function.
 
 ## Reusable Components
 
@@ -136,13 +144,20 @@ of code makes it so you have twice as much to maintain and could run
 into inconsistency issues, therefore I have only left comments on a
 discretionary basis.
 
+I always try to avoid introducing magic behaviour into my solutions
+because later on it always comes back to haunt you.
+
+Also a pet-peeve of mine is when one developer runs a code formatter
+and others don't so when you get to reviewing their PRs there is 50
+changes files but only 2 files that actually have changes.
+
 ## Testing
 
 ```
 npm run test
 ```
 
-I have used Jest for tests and have written 2 test suites to
+I have used Jest for tests and have written 2 basic test suites to
 demonstrate my understanding of tests:
 
 - Unit test - `src/redux/reducers/conversionForm.test.js`

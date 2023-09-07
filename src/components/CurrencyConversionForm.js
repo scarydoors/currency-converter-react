@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateForm } from 'redux/actions/conversionForm';
 import Form from 'components/form';
 
+/**
+ * Self-contained form, does not depend on properties, communicates
+ * with Redux using the onChange to dispatch actions.
+ */
 export default function CurrencyConversionForm() {
   const dispatch = useDispatch();
   const form = useSelector((state) => state.conversionFormReducer);
