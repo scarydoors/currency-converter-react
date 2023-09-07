@@ -19,7 +19,7 @@ const validationSchema = yup.object({
         const number = value.toString();
 
         // account for a scientific notiation number
-        return /^[0-9]+(?:\.\d{0,2}$)?$/.test(number) && !number.toLowerCase().includes("e");
+        return /^[0-9]+(?:\.\d{0,2}$)?$/.test(number) || number.toLowerCase().includes("e");
       }
     ),
 });
