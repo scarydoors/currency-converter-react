@@ -71,7 +71,7 @@ export default function CurrencyInput({ id, label, value, onChange, currencyOpti
           type="number"
           name="amount"
           id={id}
-          className={`block w-full rounded-md border-0 py-3 pl-9 pr-20 ring-1 ring-inset ring-gray-300
+          className={`block w-full rounded-md border-0 py-3 pl-12 pr-20 ring-1 ring-inset ring-gray-300
                    focus:ring-2 focus:ring-inset sm:text-sm sm-leading-6 ${getClasses()}`}
           value={value.amount}
           placeholder="0.00"
