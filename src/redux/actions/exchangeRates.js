@@ -1,8 +1,8 @@
 import { requestAllExchangeRates } from 'api/floatrates';
 
-export const REQUEST_BEGIN   = "REQUEST_BEGIN";
-export const REQUEST_SUCCESS = "REQUEST_SUCCESS";
-export const REQUEST_FAILURE = "REQUEST_FAILURE";
+export const REQUEST_BEGIN   = "exchangeRates/REQUEST_BEGIN";
+export const REQUEST_SUCCESS = "exchangeRates/REQUEST_SUCCESS";
+export const REQUEST_FAILURE = "exchangeRates/REQUEST_FAILURE";
 
 export function fetchExchangeRates() {
   return (dispatch) => {
