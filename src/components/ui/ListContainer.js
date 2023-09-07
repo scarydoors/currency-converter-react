@@ -3,7 +3,7 @@ import { Children } from "react"
 export default function ListContainer({ children, loadingRender, loading, errorRender, error }) {
   const childrenList = Children.toArray(children);
   return (
-    <div class="h-screen w-screen overflow-none flex flex-col md:justify-center items-center space-y-4 bg-gray-50 p-6">
+    <div class="h-screen w-screen overflow-none flex flex-col justify-end md:justify-center items-center space-y-4 bg-gray-50 p-6">
       {loading && loadingRender}
       {error && errorRender}
       {!(loading || error) && (
