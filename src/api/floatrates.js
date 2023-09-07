@@ -41,7 +41,7 @@ export function requestAllExchangeRates() {
       return Object.fromEntries(data);
     },
     (error) => {
-      return reject(error);
+      return Promise.reject(error);
     }
   );
 }
