@@ -125,6 +125,29 @@ object, with functions such as `Form.update` and `Form.validate` which
 would perform the appropriate operations and return objects with new
 state.
 
+## Code Style
+
+I have used prettier as a dependency to ensure that the code style is
+consistent even if there are multiple contributors.
+
+Not every piece of code has comments because code should be expressive
+and easy to read, writing documentation and comments for every piece
+of code makes it so you have twice as much to maintain and could run
+into inconsistency issues, therefore I have only left comments on a
+discretionary basis.
+
+## Testing
+
+```
+npm run test
+```
+
+I have used Jest for tests and have written 2 test suites to
+demonstrate my understanding of tests:
+
+- `src/redux/reducers/conversionForm.test.js`
+- `src/components/form/CurrencyInput.test.js`
+
 ## Available Scripts
 
 In the project directory, you can run:
