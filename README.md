@@ -145,8 +145,8 @@ npm run test
 I have used Jest for tests and have written 2 test suites to
 demonstrate my understanding of tests:
 
-* Unit test - `src/redux/reducers/conversionForm.test.js`
-* UI test - `src/components/form/CurrencyInput.test.js`
+- Unit test - `src/redux/reducers/conversionForm.test.js`
+- UI test - `src/components/form/CurrencyInput.test.js`
 
 ## Available Scripts
 

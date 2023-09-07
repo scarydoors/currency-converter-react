@@ -20,7 +20,7 @@ export function apiInstance() {
           codeNamesMap[currency] = currencyRate['name'];
         });
 
-        return {codeNamesMap, exchangeRates};
+        return { codeNamesMap, exchangeRates };
       },
     ],
   });
@@ -32,9 +32,9 @@ function getEndpoint(currency) {
 
 export async function requestAllExchangeRates(instance = apiInstance()) {
   // hack to retrieve all available currencies because api does not provide this
-  const {data} = await requestExchangeRate("gbp", instance);
+  const { data } = await requestExchangeRate('gbp', instance);
 
-  const {codeNamesMap} = data;
+  const { codeNamesMap } = data;
   const gbpExchangeRates = data.exchangeRates;
 
   const supportedCurrencies = Object.keys(codeNamesMap);
@@ -42,11 +42,11 @@ export async function requestAllExchangeRates(instance = apiInstance()) {
   return Promise.all(
     supportedCurrencies.map(async (currency) => {
       const response = await requestExchangeRate(currency, instance);
-      const {exchangeRates, codeNamesMap: names} = response.data;
+      const { exchangeRates, codeNamesMap: names } = response.data;
 
-      // need to add gbp's name because it isn't in gbp.json   
-      if (codeNamesMap["gbp"] == null) {
-        codeNamesMap["gbp"] = names["gbp"];
+      // need to add gbp's name because it isn't in gbp.json
+      if (codeNamesMap['gbp'] == null) {
+        codeNamesMap['gbp'] = names['gbp'];
       }
       return [currency, exchangeRates];
     }),
@@ -56,8 +56,8 @@ export async function requestAllExchangeRates(instance = apiInstance()) {
         codeNamesMap,
         exchangeRates: {
           gbp: gbpExchangeRates,
-          ...Object.fromEntries(data)
-        }
+          ...Object.fromEntries(data),
+        },
       };
     },
     (error) => {

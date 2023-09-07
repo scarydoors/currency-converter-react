@@ -26,7 +26,7 @@ function setExchangeRates(exchangeRates, codeNamesMap) {
     type: REQUEST_SUCCESS,
     payload: {
       exchangeRates,
-      codeNamesMap
+      codeNamesMap,
     },
   };
 }

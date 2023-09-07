@@ -5,8 +5,11 @@ import Error from './Error';
 
 const amountRequiredMessage = 'A valid amount is required';
 const validationSchema = yup.object({
-  currency: yup.mixed()
-    .when("$currencyOptions", ([currencyOptions], schema) => (schema.oneOf(currencyOptions, "A valid currency is required"))),
+  currency: yup
+    .mixed()
+    .when('$currencyOptions', ([currencyOptions], schema) =>
+      schema.oneOf(currencyOptions, 'A valid currency is required'),
+    ),
   amount: yup
     .number()
     .typeError(amountRequiredMessage)
@@ -37,7 +40,7 @@ export default function CurrencyInput({ id, label, value, onChange, currencyOpti
 
   // need to use useEffect in-case value is updated by prop change instead of onChange
   useEffect(() => {
-    validationSchema.validate(value, { abortEarly: false, context: {currencyOptions} }).then(
+    validationSchema.validate(value, { abortEarly: false, context: { currencyOptions } }).then(
       (value) => {
         setErrorMessages(null);
       },

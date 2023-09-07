@@ -6,7 +6,7 @@ import Form from 'components/form';
 export default function CurrencyConversionForm() {
   const dispatch = useDispatch();
   const form = useSelector((state) => state.conversionFormReducer);
-  const {codeNamesMap} = useSelector((state) => state.exchangeRatesReducer);
+  const { codeNamesMap } = useSelector((state) => state.exchangeRatesReducer);
 
   // HOC
   const onChange = (which) => (value) => {
@@ -17,7 +17,7 @@ export default function CurrencyConversionForm() {
   const toLabel = `Convert to ${codeNamesMap[form.to.currency]}`;
 
   const currencyOptions = Object.keys(codeNamesMap);
-  
+
   return (
     <div className="space-y-4">
       <Form.CurrencyInput
