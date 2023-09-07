@@ -1,6 +1,6 @@
 # Simple Currency Converter
 
-Currency converter based on [Google's currency converter](https://www.google.com/search?q=google+currency+converter). \
+Currency converter based on [Google's currency converter](https://www.google.com/search?q=google+currency+converter).
 
 Supports conversions for USD, GBP, CAD, AUD, and JPY. Uses Redux for
 state management and managing form state to ensure both input boxes
