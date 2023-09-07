@@ -6,11 +6,13 @@ describe('<CurrencyInput /> validations', () => {
   const id = 'currencyInput';
   const onChange = jest.fn();
   const label = 'Amount';
-  const currencyOptions = ['gbp', 'aud']
+  const currencyOptions = ['gbp', 'aud'];
 
   const setup = async (value) => {
     return act(() => {
-      render(<CurrencyInput id={id} label={label} onChange={onChange} value={value} currencyOptions={currencyOptions}/>);
+      render(
+        <CurrencyInput id={id} label={label} onChange={onChange} value={value} currencyOptions={currencyOptions} />,
+      );
     });
   };
 
