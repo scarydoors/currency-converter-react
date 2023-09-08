@@ -86,6 +86,11 @@ export async function requestAllExchangeRates(instance = apiInstance()) {
   );
 }
 
+/**
+ * Fetches exchange rates for a given currency.
+ * @param{string} currency - ISO4217 3 letter code for currency
+ * @returns{object} - {exchangeRates, codeNamesMap}
+ */
 export async function requestExchangeRate(currency, instance = apiInstance()) {
   const endpoint = getEndpoint(currency);
   return instance.get(endpoint);
