@@ -15,9 +15,10 @@ not mentioned in this section.
 ### Redux
 
 I have migrated from `react-redux` to React Toolkit and have used a
-slice to represent my conversion form instead. I have also deprecated
-the former API implementation in favor of using createAPI provided by
-Redux Toolkit to leverage the Query system.
+slice to represent my conversion form instead of handwritten actions
+and reducers. I have also deprecated the former API implementation in
+favor of using createAPI provided by Redux Toolkit to leverage the
+Query system.
 
 - `conversionFormSlice` - This mostly works the same as the old
   conversionForm reducer in terms of handling state, fields are still
@@ -58,16 +59,17 @@ used useQuery hooks which basically work the same but without the
 boilerplate.
 
 As per the Lead Devs suggestion, the UX is greatly improved because
-the data is not fetched all at once resulting a very fast load time.
-Instead, I load the exchangeRates each time from's currency is changed
-which results in small wait time between changes which is completely
-fine in terms of UX.
+the data is not fetched all at once resulting in a very fast load time
+compared to 15 seconds. Instead, I load the exchangeRates each time
+from's currency is changed which results in small wait time between
+changes which is completely fine in terms of UX as pointed out by the
+Tech Lead.
 
 Additionally, loading state and error state is no longer managed in
-`App.js`, loading state is reflected by skeleton depictions of the
-CurrencyInput components and error state is reflected by showing the
-error message instead of the inputs. This achieves a more cleaner look
-and is better for UX.
+`App.js`, loading state is reflected by loading skeleton depictions of
+the CurrencyInput components and error state is reflected by showing
+the error message instead of the inputs. This achieves a more cleaner
+look and is better for UX.
 
 # CurrencyInput
 
@@ -85,22 +87,18 @@ CurrencyConversionForm.
 
 Overall, this was a great learning experience, and will be useful as
 the Tech Lead has recommended me to use Redux Toolkit instead of the
-legacy system, and I find that Toolkit is great in terms of reducing
-boilerplate and preventing some bugs that could occur while using the
-legacy system.
+legacy system, and I find that Redux Toolkit is great in terms of
+reducing boilerplate and preventing some bugs that could occur while
+using the legacy system.
 
-I am also quite happy that I've ditched the spinner for a faster load
-time using the Tech Lead's suggestions along with polishing up how
-loading state is shown to the user.
+I am also quite happy that I've achieved a faster load time using the
+Tech Lead's suggestions along with polishing up how loading state is
+shown to the user.
 
 The Redux Query part of Redux Toolkit is great because if used
 correctly it can provide caching for endpoints which can speed up data
 fetching for the user and also provides React Hooks for
 mutating/quering data which is great for developer experience.
-
-Also I understand that the directory structure that I am using is not
-the recommended one to use with Redux Toolkit and is more akin to the
-legacy style of Redux.
 
 ## Old Readme ahead, fully accurate for changes on and before commit [a11253](https://github.com/scarydoors/currency-converter-react/tree/a1125348ce019f4b238197f877283572044c84bd)
 
