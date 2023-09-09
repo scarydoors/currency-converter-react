@@ -14,19 +14,20 @@ export default function CurrencyConversionForm() {
 
   const { data: currencyInfo, error, isFetching } = useGetCurrencyInfoQuery();
 
-  const { data: fromExchangeRates, error: errorExchangeRate, isFetching: loadingExchangeRate } = useGetExchangeRatesByCodeQuery(
-    form.from.currency,
-    { refetchOnMountOrArgChange: true },
-  );
+  const {
+    data: fromExchangeRates,
+    error: errorExchangeRate,
+    isFetching: loadingExchangeRate,
+  } = useGetExchangeRatesByCodeQuery(form.from.currency, { refetchOnMountOrArgChange: true });
 
   if (error || errorExchangeRate) {
     return (
       <div>
         <p>Could not retrieve the exchange rates. Please check your internet connection.</p>
       </div>
-    )
+    );
   }
-  
+
   const onChange = (which) => (value) => {
     dispatch(updateFields({ which, value, fromExchangeRates }));
   };
