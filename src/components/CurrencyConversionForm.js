@@ -6,7 +6,8 @@ import Form from 'components/form';
 
 /**
  * Self-contained form, does not depend on properties, communicates
- * with Redux using the onChange to dispatch actions.
+ * with Redux using the onChange to dispatch actions, and uses Redux
+ * Query for data fetching.
  */
 export default function CurrencyConversionForm() {
   const dispatch = useDispatch();
