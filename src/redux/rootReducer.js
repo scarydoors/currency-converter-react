@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import conversionFormReducer from 'redux/reducers/conversionForm';
-import exchangeRatesReducer from 'redux/reducers/exchangeRates';
+import { floatratesApi } from 'redux/api/floatrates';
+import conversionForm from 'redux/slices/conversionFormSlice';
 
 export default combineReducers({
-  exchangeRatesReducer,
-  conversionFormReducer,
+  [floatratesApi.reducerPath]: floatratesApi.reducer,
+  conversionForm: conversionForm,
 });

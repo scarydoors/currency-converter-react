@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { updateForm } from 'redux/actions/conversionForm';
+import { useGetCurrencyInfoQuery, useGetExchangeRatesByCodeQuery } from 'redux/api/floatrates';
+import { updateFields } from 'redux/slices/conversionFormSlice';
 
 import Form from 'components/form';
 
@@ -9,18 +10,22 @@ import Form from 'components/form';
  */
 export default function CurrencyConversionForm() {
   const dispatch = useDispatch();
-  const form = useSelector((state) => state.conversionFormReducer);
-  const { codeNamesMap } = useSelector((state) => state.exchangeRatesReducer);
+  const form = useSelector((state) => state.conversionForm);
 
-  // HOC
+  const { data: currencyInfo, error, isFetching } = useGetCurrencyInfoQuery();
+  const { data: fromExchangeRates, isFetching: loadingExchangeRate } = useGetExchangeRatesByCodeQuery(
+    form.from.currency,
+    { refetchOnMountOrArgChange: true },
+  );
+
   const onChange = (which) => (value) => {
-    dispatch(updateForm(which, value));
+    dispatch(updateFields({ which, value, fromExchangeRates }));
   };
 
-  const fromLabel = `Convert from ${codeNamesMap[form.from.currency]}`;
-  const toLabel = `Convert to ${codeNamesMap[form.to.currency]}`;
+  const { currencyNameMap, supportedCurrencies } = currencyInfo || {};
 
-  const currencyOptions = Object.keys(codeNamesMap);
+  const fromLabel = !isFetching && `Convert from ${currencyNameMap[form.from.currency]}`;
+  const toLabel = !isFetching && `Convert to ${currencyNameMap[form.to.currency]}`;
 
   return (
     <div className="space-y-4">
@@ -28,15 +33,17 @@ export default function CurrencyConversionForm() {
         id="from"
         label={fromLabel}
         value={form.from}
+        loading={isFetching}
         onChange={onChange('from')}
-        currencyOptions={currencyOptions}
+        currencyOptions={supportedCurrencies}
       />
       <Form.CurrencyInput
         id="to"
         label={toLabel}
         value={form.to}
         onChange={onChange('to')}
-        currencyOptions={currencyOptions}
+        loading={isFetching || loadingExchangeRate}
+        currencyOptions={supportedCurrencies}
       />
     </div>
   );

@@ -30,15 +30,15 @@ const validationSchema = yup.object({
 
 /**
  * Specialized form input for entering amounts of money.
+ * @param{boolean} loading - if true, shows loading skeleton to show the user the field isn't ready
  * @param{string} id - id used for inputs
  * @param{string} label - label which is displayed to the user
  * @param{object} value - value that is assigned to the input e.g. {currency: 'gbp', amount: '2.00'}
  * @param{function} onChange - fires when the value of the input is updated
  * @param{string[]} currencyOptions - array of supported currencies in ISO4217 format
  */
-export default function CurrencyInput({ id, label, value, onChange, currencyOptions }) {
+export default function CurrencyInput({ loading, id, label, value, onChange, currencyOptions = [] }) {
   const [errorMessages, setErrorMessages] = useState(null);
-  const selectId = `${id}select`;
 
   // need to use useEffect in-case value is updated by prop change instead of onChange
   useEffect(() => {
@@ -53,12 +53,26 @@ export default function CurrencyInput({ id, label, value, onChange, currencyOpti
     );
   }, [value, currencyOptions]);
 
+  if (loading) {
+    return (
+      <div className="animate-pulse">
+        <div className="flex flex-col w-full">
+          <div className="w-36 h-4 bg-gray-200 rounded-md"></div>
+          <div className="block mt-2 bg-gray-200 w-full h-10 rounded-md"></div>
+        </div>
+      </div>
+    );
+  }
+
+  const selectId = `${id}select`;
+
   const getClasses = () => {
     if (errorMessages) {
       return 'ring-red-600 focus:ring-red-600';
     }
     return 'focus:ring-indigo-600';
   };
+
   return (
     <div>
       <label htmlFor={id} className="block text-sm font-medium leading-6 text-gray-900 leading-6">

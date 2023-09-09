@@ -1,29 +1,17 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchExchangeRates } from 'redux/actions/exchangeRates';
-
 import CurrencyConversionForm from 'components/CurrencyConversionForm';
 import UI from 'components/ui';
 
 function App() {
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.exchangeRatesReducer);
-
-  // main part of application, needed before the form is operable
-  useEffect(() => {
-    dispatch(fetchExchangeRates());
-  }, [dispatch]);
-
   return (
     <UI.ListContainer
-      loading={loading}
+      loading={false}
       loadingRender={
         <div className="text-center space-y-6 p-6">
           <UI.Spinner className="w-16 h-16" />
           <p>Loading Conversion Rates...</p>
         </div>
       }
-      error={error}
+      error={false}
       errorRender={
         <div className="text-center space-y-6 p-6">
           <p>Could not retrieve the exchange rates. Please check your internet connection.</p>
