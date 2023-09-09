@@ -2,7 +2,7 @@
 
 ## Feedback recieved!
 
-The tech lead who reviewed this has given me some great feedback
+The Tech Lead who reviewed this has given me some great feedback
 (thank you). The main issue with my app was the fact that everything
 was prefetched resulting in a ~15 second load time. I have also been
 told that my use of the legacy version of Redux was acceptable, but I
