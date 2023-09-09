@@ -36,7 +36,6 @@ export const conversionFormSlice = createSlice({
      * Updates and calculates new values for the state of the form
      * Payload example:
      * {
-     *   which: "from",    // the updated field
      *   value: {currency: "usd", amount: 2.22},  // the new value of the field
      *   fromExchangeRates: { // object containing conversion rates between different currencies
      *     "usd": {
@@ -47,20 +46,17 @@ export const conversionFormSlice = createSlice({
      *   }
      * }
      */
-    updateFields: (state, action) => {
-      const { which, value, fromExchangeRates } = action.payload;
-
-      // update from only if the currency isn't the thing that changed because the extraReducer handles that
-      if (which === 'from' && state.from.currency === value.currency) {
-        state.from = value;
-        state.to = calculateAmount(fromExchangeRates, state.to.currency, value, which, state.to);
-      } else if (which === 'to') {
-        state.from = calculateAmount(fromExchangeRates, value.currency, value, which, state.from);
-        state.to = value;
-      } else if (which === 'from') {
-        // just update the value, the extraReducer will handle the calculation after the exchangeRates are fetched
-        state.from = value;
+    updateFrom: (state, action) => {
+      const { value, fromExchangeRates } = action.payload;
+      state.from = value;
+      if (state.from.currency === value.currency) {
+        state.to = calculateAmount(fromExchangeRates, state.to.currency, value, 'from', state.to);
       }
+    },
+    updateTo: (state, action) => {
+      const { value, fromExchangeRates } = action.payload;
+      state.from = calculateAmount(fromExchangeRates, value.currency, value, 'to', state.from);
+      state.to = value;
     },
   },
   extraReducers: (builder) => {
@@ -74,6 +70,6 @@ export const conversionFormSlice = createSlice({
   },
 });
 
-export const { updateFields } = conversionFormSlice.actions;
+export const { updateFrom, updateTo } = conversionFormSlice.actions;
 
 export default conversionFormSlice.reducer;

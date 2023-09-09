@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetCurrencyInfoQuery, useGetExchangeRatesByCodeQuery } from 'redux/api/floatrates';
-import { updateFields } from 'redux/slices/conversionFormSlice';
+import { updateFrom, updateTo } from 'redux/slices/conversionFormSlice';
 
 import Form from 'components/form';
 
@@ -33,7 +33,11 @@ export default function CurrencyConversionForm() {
   }
 
   const onChange = (which) => (value) => {
-    dispatch(updateFields({ which, value, fromExchangeRates }));
+    if (which === 'from') {
+      dispatch(updateFrom({ value, fromExchangeRates }));
+    } else if (which === 'to') {
+      dispatch(updateTo({ value, fromExchangeRates }));
+    }
   };
 
   const { currencyNameMap, supportedCurrencies } = currencyInfo || {};
