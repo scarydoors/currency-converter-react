@@ -102,7 +102,7 @@ Also I understand that the directory structure that I am using is not
 the recommended one to use with Redux Toolkit and is more akin to the
 legacy style of Redux.
 
-## Old Readme ahead, fully accurate for changes on and before commit a1125348ce019f4b238197f877283572044c84bd
+## Old Readme ahead, fully accurate for changes on and before commit [a11253](https://github.com/scarydoors/currency-converter-react/tree/a1125348ce019f4b238197f877283572044c84bd)
 
 Currency converter based on [Google's currency
 converter](https://www.google.com/search?q=google+currency+converter).
