@@ -35,7 +35,10 @@ Redux Toolkit to leverage the Query system.
 
   - extraReducer `floatratesApi.endpoints.getExchangeRatesByCode` is
     used to get the newest `fromExchangeRates` in order to perform the
-    calculation when the from field's currency changes.
+    calculation when the from field's currency changes which triggers
+    the query to re-run. The caveat of relying on this action being
+    handled is the fact that I cannot rely on caching because when a
+    cached value is returned no promise is fired.
 - `floatratesApi` - The implementation is a lot simpler compared to
   the deprecated one. There are two endpoints defined.
   - `getExchangeRatesByCode` - Takes in the `currencyCode` as a
@@ -46,10 +49,11 @@ Redux Toolkit to leverage the Query system.
 
 # CurrencyConversionForm
 
-This component has changed quite a bit, I have moved the initial
-fetching of exchangeRates from the App component into this one.
+This component has changed quite a bit, I have moved the initial (and
+now subsequent) fetching of exchangeRates from the App component into
+this one.
 
-Leveraging the Query API instead of manually writing a thunk I have
+Leveraging the Query API, instead of manually writing a thunk, I have
 used useQuery hooks which basically work the same but without the
 boilerplate.
 
@@ -58,6 +62,12 @@ the data is not fetched all at once resulting a very fast load time.
 Instead, I load the exchangeRates each time from's currency is changed
 which results in small wait time between changes which is completely
 fine in terms of UX.
+
+Additionally, loading state and error state is no longer managed in
+`App.js`, loading state is reflected by skeleton depictions of the
+CurrencyInput components and error state is reflected by showing the
+error message instead of the inputs. This achieves a more cleaner look
+and is better for UX.
 
 # CurrencyInput
 
@@ -71,13 +81,17 @@ The main entry point of the app, `App.js`, is a lot more cleaner now
 as the Redux related logic has been fully moved to
 CurrencyConversionForm.
 
-# Additional Notes
+# Additional Notes & Conclusion
 
 Overall, this was a great learning experience, and will be useful as
 the Tech Lead has recommended me to use Redux Toolkit instead of the
 legacy system, and I find that Toolkit is great in terms of reducing
 boilerplate and preventing some bugs that could occur while using the
 legacy system.
+
+I am also quite happy that I've ditched the spinner for a faster load
+time using the Tech Lead's suggestions along with polishing up how
+loading state is shown to the user.
 
 The Redux Query part of Redux Toolkit is great because if used
 correctly it can provide caching for endpoints which can speed up data
