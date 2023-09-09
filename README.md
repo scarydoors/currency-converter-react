@@ -1,6 +1,97 @@
 # Simple Currency Converter
 
-Currency converter based on [Google's currency converter](https://www.google.com/search?q=google+currency+converter).
+## Feedback recieved!
+
+The tech lead who reviewed this has given me some great feedback
+(thank you). The main issue with my app was the fact that everything
+was prefetched resulting in a ~15 second load time. I have also been
+told that my use of the legacy version of Redux was acceptable, but I
+wanted to set myself a challenge to learn the new version of Redux
+with Redux Toolkit.
+
+Most of the information is still accurate in the old README section if
+not mentioned in this section.
+
+### Redux
+
+I have migrated from `react-redux` to React Toolkit and have used a
+slice to represent my conversion form instead. I have also deprecated
+the former API implementation in favor of using createAPI provided by
+Redux Toolkit to leverage the Query system.
+
+- `conversionFormSlice` - This mostly works the same as the old
+  conversionForm reducer in terms of handling state, fields are still
+  synced. However, many modifications had to be made to accomodate the
+  new API implementation.
+  - There is just one action `updateFields` which handles changes on
+    both the fields, determining which field to change using the which
+    parameter. It does not handle the currency of the from field
+    changing because I rely on the matchFulfilled event from the
+    `floatratesAPI` slice to return the new conversionRates.
+
+    I also utilize the inverseRate which I previously have not, which
+    means that I no longer have to run a request if the to field
+    changes.
+
+  - extraReducer `floatratesApi.endpoints.getExchangeRatesByCode` is
+    used to get the newest `fromExchangeRates` in order to perform the
+    calculation when the from field's currency changes.
+- `floatratesApi` - The implementation is a lot simpler compared to
+  the deprecated one. There are two endpoints defined.
+  - `getExchangeRatesByCode` - Takes in the `currencyCode` as a
+    parameter, it also uses transformResponse to add the case where
+    you convert something like `gbp` to `gbp` where the rates would be 1.
+  - `getCurrencyInfo` - Akin to the previous implementation, uses a hack
+    to determine the supported currencies and currency code to name map.
+
+# CurrencyConversionForm
+
+This component has changed quite a bit, I have moved the initial
+fetching of exchangeRates from the App component into this one.
+
+Leveraging the Query API instead of manually writing a thunk I have
+used useQuery hooks which basically work the same but without the
+boilerplate.
+
+As per the Lead Devs suggestion, the UX is greatly improved because
+the data is not fetched all at once resulting a very fast load time.
+Instead, I load the exchangeRates each time from's currency is changed
+which results in small wait time between changes which is completely
+fine in terms of UX.
+
+# CurrencyInput
+
+Not much has changed in the CurrencyInput apart from including
+support for a loading state and displaying an animated loading
+skeleton to indicate to the user that some processing is happening.
+
+# App component
+
+The main entry point of the app, `App.js`, is a lot more cleaner now
+as the Redux related logic has been fully moved to
+CurrencyConversionForm.
+
+# Additional Notes
+
+Overall, this was a great learning experience, and will be useful as
+the Tech Lead has recommended me to use Redux Toolkit instead of the
+legacy system, and I find that Toolkit is great in terms of reducing
+boilerplate and preventing some bugs that could occur while using the
+legacy system.
+
+The Redux Query part of Redux Toolkit is great because if used
+correctly it can provide caching for endpoints which can speed up data
+fetching for the user and also provides React Hooks for
+mutating/quering data which is great for developer experience.
+
+Also I understand that the directory structure that I am using is not
+the recommended one to use with Redux Toolkit and is more akin to the
+legacy style of Redux.
+
+## Old Readme ahead, fully accurate for changes on and before commit a1125348ce019f4b238197f877283572044c84bd
+
+Currency converter based on [Google's currency
+converter](https://www.google.com/search?q=google+currency+converter).
 
 Supports conversions for all currencies on floatrates. Uses Redux for
 state management and managing form state to ensure both input boxes
@@ -34,7 +125,7 @@ The `ListContainer` primarily provides responsiveness to the app by
 bottom aligning the children because mobile users would prefer UI
 elements which are closer to their thumb for ease of use.
 
-## Redux
+### Redux
 
 I found out quite recently about Redux Toolkit and it looks great in
 regards to reducing boilerplate and ease of development however I have
@@ -64,7 +155,7 @@ Redux is used in this app to store 2 different types of data:
 The main action defined for fetching the `exchangeRates` uses
 `redux-thunk` to dispatch from an asynchronous function.
 
-## Reusable Components
+### Reusable Components
 
 This project has a components folder which stores components that
 build upon components in the `ui` and `form` folders.
@@ -113,7 +204,7 @@ onChange function to two `form/CurrencyInput` components which allows
 them to update Redux state and differentiate from which field onChange
 events originate.
 
-## Design Decisions
+### Design Decisions
 
 The validations are carried out in the `CurrencyInput` component
 itself instead of the form, the reason for this choice is the fact
@@ -133,7 +224,7 @@ object, with functions such as `Form.update` and `Form.validate` which
 would perform the appropriate operations and return objects with new
 state.
 
-## Code Style
+### Code Style
 
 I have used prettier as a dependency to ensure that the code style is
 consistent even if there are multiple contributors.
@@ -151,7 +242,7 @@ Also a pet-peeve of mine is when one developer runs a code formatter
 and others don't so when you get to reviewing their PRs there is 50
 changes files but only 2 files that actually have changes.
 
-## Testing
+### Testing
 
 ```
 npm run test

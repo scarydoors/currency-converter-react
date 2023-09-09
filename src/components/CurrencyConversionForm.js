@@ -14,6 +14,9 @@ export default function CurrencyConversionForm() {
 
   const { data: currencyInfo, error, isFetching } = useGetCurrencyInfoQuery();
 
+  // refetchOnMountOrArgChange is needed to make sure the promise is
+  // always fired, the promise is not fired when caching is used
+  // TODO: find a better solution because we should probably cache
   const {
     data: fromExchangeRates,
     error: errorExchangeRate,

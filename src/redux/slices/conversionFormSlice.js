@@ -32,6 +32,21 @@ export const conversionFormSlice = createSlice({
   name: 'conversionForm',
   initialState,
   reducers: {
+    /**
+     * Updates and calculates new values for the state of the form
+     * Payload example:
+     * {
+     *   which: "from",    // the updated field
+     *   value: {currency: "usd", amount: 2.22},  // the new value of the field
+     *   fromExchangeRates: { // object containing conversion rates between different currencies
+     *     "usd": {
+     *       "gbp": {rate: 2.234297, inverseRate: 0.6655, date: new Date()},
+     *       ...
+     *     },
+     *     ...
+     *   }
+     * }
+     */
     updateFields: (state, action) => {
       const { which, value, fromExchangeRates } = action.payload;
 
