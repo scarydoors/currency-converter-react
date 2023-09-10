@@ -51,6 +51,11 @@ Query system.
   - `getCurrencyInfo` - Akin to the previous implementation, uses a hack
     to determine the supported currencies and currency code to name map.
 
+I am aware of the recommended file structure for Redux Toolkit which
+involves sorting slices and related components into their respective
+`feature` folders, and my directory structure does not reflect that,
+however it can always be changed.
+
 # CurrencyConversionForm
 
 This component has changed quite a bit, I have moved the initial (and
