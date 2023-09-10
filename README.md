@@ -24,6 +24,7 @@ Query system.
   conversionForm reducer in terms of handling state, fields are still
   synced. However, many modifications had to be made to accomodate the
   new API implementation.
+
   - There is are two actions `updateFrom` and `updateTo` which handles
     changes for both of the fields, I have broken it up into 2 actions
     to simplify the reducer's logic. It does not handle the currency
@@ -41,6 +42,7 @@ Query system.
     the query to re-run. The caveat of relying on this action being
     handled is the fact that I cannot rely on caching because when a
     cached value is returned no promise is fired.
+
 - `floatratesApi` - The implementation is a lot simpler compared to
   the deprecated one. There are two endpoints defined.
   - `getExchangeRatesByCode` - Takes in the `currencyCode` as a

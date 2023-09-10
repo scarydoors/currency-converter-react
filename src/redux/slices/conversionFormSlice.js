@@ -63,7 +63,15 @@ export const conversionFormSlice = createSlice({
     builder.addMatcher(
       floatratesApi.endpoints.getExchangeRatesByCode.matchFulfilled,
       // this only runs when from's currency changes
-      (state, { payload: fromExchangeRates }) => {
+      (state, { payload: fromExchangeRates, meta }) => {
+        const {
+          arg: { originalArgs: currency },
+        } = meta;
+
+        // because i rely on such a broad action, which could be fired
+        // from a different interation, we only want to use the
+        // payload when the currency matches from's currency
+        if (currency !== state.from.currency) return;
         state.to = calculateAmount(fromExchangeRates, state.to.currency, state.from, 'from', state.to);
       },
     );
