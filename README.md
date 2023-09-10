@@ -25,12 +25,12 @@ Query system.
   synced. However, many modifications had to be made to accomodate the
   new API implementation.
 
-  - There is are two actions `updateFrom` and `updateTo` which handles
+  - There are two actions `updateFrom` and `updateTo` which handle
     changes for both of the fields, I have broken it up into 2 actions
-    to simplify the reducer's logic. It does not handle the currency
-    of the from field changing because I rely on the matchFulfilled
-    event from the `floatratesAPI` slice to return the new
-    conversionRates.
+    to simplify the reducer's logic. `updateFrom` does not handle the
+    currency of the from field changing because I rely on the
+    matchFulfilled event from the `floatratesAPI` slice to return the
+    new conversionRates.
 
     I also utilize the inverseRate which I previously have not, which
     means that I no longer have to run a request if the to field
